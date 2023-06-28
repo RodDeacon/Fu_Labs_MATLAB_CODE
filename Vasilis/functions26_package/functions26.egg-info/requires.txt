@@ -1,0 +1,17 @@
+collections-extended
+lmfit
+matplotlib
+nidaqmx
+numpy
+pandas
+py3dns
+pydaqmx
+pyserial
+pyvisa
+pyqt5
+pyqtgraph
+scipy
+seaborn
+sif_reader@ https://github.com/fujiisoup/sif_reader/tarball/master#egg=package-1.0
+spinmob
+windfreak

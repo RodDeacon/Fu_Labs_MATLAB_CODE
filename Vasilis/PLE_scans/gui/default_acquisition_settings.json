@@ -1,0 +1,92 @@
+{
+    "General": {
+        "Acquisition Type": {
+            "Stationary": true,
+            "Continuous": false
+        },
+        "Stationary": {
+            "File Options": {
+                "Folder Name": ".",
+                "Filename Template": "Lsr~Matisse-WV-1n_Msc~StationaryScan",
+                "Saved File Extension": "qdlf",
+                "Filename No. Start": 1
+            },
+            "Scan Options": {
+                "Initial Wavelength (nm)": 737.77,
+                "Final Wavelength (nm)": 737.84,
+                "Scan Step (nm)": 0.002,
+                "Acquisition Time (s)": 10.0,
+                "Scanning speed": 0.005
+            },
+            "Active Measuring Devices": {
+                "andor": false,
+                "powermeter_A": false,
+                "powermeter_B": true,
+                "spcm": true,
+                "wa1600": false
+            }
+        },
+        "Continuous": {
+            "File Options": {
+                "Folder Name": ".",
+                "Filename": "continuous_scan",
+                "Saved File Extension": "mqdlf"
+            },
+            "Scan Options": {
+                "Initial Wavelength (nm)": 737.77,
+                "Final Wavelength (nm)": 737.84,
+                "Scanning speed": 0.0002,
+                "Total Acquisitions": 1
+            },
+            "Active Measuring Devices": {
+                "powermeter_A": false,
+                "powermeter_B": true,
+                "spcm": true,
+                "wa1600": false
+            }
+        }
+    },
+    "Laser": {
+        "Device": {
+            "Device Port": "TBD"
+        },
+        "Coupled Wavemeter": {
+            "Wavemeter Name": "WaveMaster",
+            "Wavemeter Port": "COM5"
+        }
+    },
+    "SPCM": {
+        "Device": {
+            "Device Port": "dev1/ctr1",
+            "Sampling Time (s)": 0.05
+        }
+    },
+    "Powermeter": {
+        "Device": {
+            "Device Port": "GPIB0::5::INSTR",
+            "Sampling Time (s)": 0.05
+        }
+    },
+    "WA1600": {
+        "Device": {
+            "Device Port": "GPIB0::18::INSTR",
+            "Sampling Time (s)": 0.05
+        }
+    },
+    "Andor": {
+        "Spectrograph": {
+            "Center Wavelength (nm)": 740.0,
+            "Grating Grooves": 3,
+            "Use Pre-existing": true
+        },
+        "CCD": {
+            "Acquisition Mode": "Single",
+            "Readout Mode": "FVB",
+            "Temperature (C)": -67.0,
+            "Accumulation Number": 1,
+            "Wait for Temperature": true,
+            "Cosmic Ray Filter": true,
+            "Use Pre-existing": true
+        }
+    }
+}
