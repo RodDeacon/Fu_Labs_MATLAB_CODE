@@ -1,7 +1,7 @@
 ''' 
 Rodney Deacon
 6/29/2023
-Fu Lab PLE code testground
+University of Washington Fu Lab PLE code testground
 
 system info from : https://github.com/ni/nidaqmx-python/blob/master/examples/system_properties.py
 
@@ -10,10 +10,12 @@ output voltage test from : https://github.com/ni/nidaqmx-python/blob/master/exam
 import nidaqmx
 import traceback # temp for testing
 
-devices_found = False
+devices_found = False # used for checking if there are devices found DONT CHANGE
 
 def get_system_info():
-# test if there is successful communication with the DAQ, try and print system information
+    """ used to get local system information and see if there is a successful communication with DAQ.
+    """
+    
     local_system = nidaqmx.system.system.System.local() #create system object to get system info
     driver_version = local_system.driver_version # assign local_system's driver_version property to a driver_version variable
 
@@ -44,16 +46,29 @@ def get_system_info():
 
 # the following context manager is testing output voltage 
 def test_out_voltage():
-    with nidaqmx.Task() as myTask: # instantiate a new task called "myTask"
-            myTask.ao_channels.add_ao_voltage_chan("Dev1/ao3") # add a new voltage channel to the task
+    """ used for testing output voltage
+    #TODO: find more elegant failsafe
+    
+    """
+    
+    # temporary failsafe if Dev1 is not detected and displayed in terminal
+    #get user input
+    choice = input("please enter 1 to continue or anything else to quit.\n--> ")
 
-            myTask.timing.cfg_samp_clk_timing(2000) # ASSUMED TO BE MILISECONDS
+#TODO: no choice for anything other than 0 or 1
+    if choice == "1":
+        with nidaqmx.Task() as myTask: # instantiate a new task called "myTask"
+                myTask.ao_channels.add_ao_voltage_chan("Dev1/ao3") # add a new voltage channel to the task
 
-            print(myTask.write(3, auto_start=True)) # "writes" 3 , to Dev1/ao3 for 1 clock timing
+                myTask.timing.cfg_samp_clk_timing(2000) # ASSUMED TO BE MILISECONDS
 
-            myTask.wait_until_done() # waits for task is complete
-            myTask.stop()# stops task
+                print(myTask.write(3, auto_start=True)) # "writes" 3 , to Dev1/ao3 for 1 clock timing
 
+                myTask.wait_until_done() # waits for task is complete
+                myTask.stop()# stops task
+
+    
+         
 print("\ndriver version:")
 get_system_info()
 
