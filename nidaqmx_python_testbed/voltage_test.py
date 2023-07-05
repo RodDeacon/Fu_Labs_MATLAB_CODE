@@ -1,6 +1,6 @@
 ''' 
 Rodney Deacon
-6/29/2023
+7/4/2023
 Fu Lab PLE code testground
 
 system info from : https://github.com/ni/nidaqmx-python/blob/master/examples/system_properties.py
@@ -16,7 +16,7 @@ devices_found = True
 def get_system_info():
 # test if there is successful communication with the DAQ, try and print system information
     local_system = nidaqmx.system.system.System.local() #create system object to get system info
-    driver_version = local_system.driver_version # assign local_system's driver_version property to a driver_version variable
+    driver_version = local_system.driver_version # assign local_systems driver_version property to a driver_version variable
 
     # print the version of the driver using python's print format
     print(
@@ -43,17 +43,18 @@ def get_system_info():
     if len(device_list) > 0: # if a device is found then the boolean will be made true
         devices_found = True
 
-# the following context manager is testing output voltage 
 def test_out_voltage():
-    with nidaqmx.Task() as myTask: # instantiate a new task called "myTask"
-            myTask.ao_channels.add_ao_voltage_chan("Dev1/ao3") # add a new voltage channel to the task
+    ''' the following context manager is testing output voltage 
+    '''
+    with nidaqmx.Task() as myTask:                              # instantiate a new task called "myTask"
+        myTask.ao_channels.add_ao_voltage_chan("Dev1/ao3")      # add a new voltage channel to the task
 
-            myTask.timing.cfg_samp_clk_timing(2000) # ASSUMED TO BE MILISECONDS
+        myTask.timing.cfg_samp_clk_timing(2000)                 # ASSUMED TO BE MILISECONDS
 
-            print(myTask.write(3, auto_start=True)) # "writes" 3 , to Dev1/ao3 for 1 clock timing
+        print(myTask.write(3, auto_start=True))                 # "writes" 3 , to Dev1/ao3 for 1 clock timing "prints 1 to the console"
 
-            myTask.wait_until_done() # waits for task is complete
-            myTask.stop()# stops task
+        myTask.wait_until_done()                                # waits for task is complete
+        myTask.stop()                                           # stops task
 
 def available_terminals():
     '''loop through available terminals and print them out
@@ -62,12 +63,22 @@ def available_terminals():
     for tr in device.terminals:
 	    print(tr)
 
+def ao_phys_channels():
+    ''' attempt to view available ao_physical_channels
+    '''
+    for x in nidaqmx.system.physical_channel.ao_phys_channels:
+        print(x)
+    #print(nidaqmx.system.physical_channel.ao_physical_chans)
+
 # main program areaa
 print("\ndriver version:")
 get_system_info()
 
 print("\navailable terminals:\n")
 available_terminals()
+
+print("\nattempting to get all physical ao channels\n")
+ao_phys_channels()
 
 print("\nattempting to generate test volatage on \"Dev1\\ao3\"..")
 if devices_found: # if there are devices, try to run the function test_out_voltage() #TODO: device specific statements or menu    
